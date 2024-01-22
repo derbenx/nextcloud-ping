@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<info xmlns:xsi= "http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="https://apps.nextcloud.com/schema/apps/info.xsd">
+    <id>ping</id>
+    <name>Ping</name>
+    <summary>Ping sweep</summary>
+    <description><![CDATA[
+# ping
+A Nextcloud app that lets you ping your lan.
+    ]]></description>
+    <version>1.0.0</version>
+    <licence>agpl</licence>
+    <author mail="colin@derben.ca" homepage="https://derben.ca">DerBen</author>
+    <namespace>ping</namespace>
+    <category>tools</category>
+    <website>https://github.com/derbenx/nextcloud-ping</website>
+    <bugs>https://github.com/derbenx/nextcloud-ping/issues</bugs>
+    <screenshot>https://raw.githubusercontent.com/derbenx/nextcloud-ping/main/ping.png</screenshot>
+    <dependencies>
+        <nextcloud min-version="25" max-version="30"/>
+    </dependencies>
+	    <navigations>
+        <navigation>
+            <name>Ping</name>
+            <route>ping.page.index</route>
+        </navigation>
+    </navigations>
+</info>
