@@ -1,6 +1,7 @@
 
-const pr=document.getElementById('pr');
-const ip=document.getElementById('ip');
+const arr=['ip','st','ed','sp','ep','to'];
+const pr=document.getElementById('pr'); //log area
+const ip = document.getElementById('ip');
 const st = document.getElementById('st');
 const ed = document.getElementById('ed');
 const sp = document.getElementById('sp');
@@ -26,19 +27,31 @@ prsw.addEventListener('click', function(){ stps(0) });
 prsc.addEventListener('click', function(){ stps(1) });
 stsc.addEventListener('click', stop);
 
-//pt=80;
-//web.forEach(doit);
-//fsp.forEach(doit);
-//for (i=1;i<255;i++){
-//}
-
 var con=1; //continue
 var scan=0; // portscan mode: 1=port scan, 0=port sweep -1=ping sweep
-//var pt="<?php echo $pt; ?>";
 var i=-1;
 //setTimeout( function(){doit("<?php echo $ip; ?>"+i)},100);
 
 function stps(xx){
+ rstclr()
+ //console.log(xx);
+ if (xx==-1) {
+  ip.style.background="green";
+  st.style.background="green";
+  ed.style.background="green";
+ }
+ if (xx==0) {
+  ip.style.background="green";
+  st.style.background="green";
+  ed.style.background="green";
+  sp.style.background="green";
+ }
+ if (xx==1) {
+  ip.style.background="green";
+  st.style.background="green";
+  sp.style.background="green";
+  ep.style.background="green";
+ }
  //console.log(xx);
  con=0; scan=xx; i=-1;
  pr.innerHTML='';
@@ -153,4 +166,9 @@ function updat(qq){ // update [input id='to']
   if ( (sp.value*1)>(ep.value*1) ) { sp.value = (ep.value*1); }
  }
  }
-function stop(){ con=0; }
+function stop(){ con=0; rstclr(); }
+function rstclr() {
+ for (var i=0;i<arr.length;i++) {
+  document.getElementById(arr[i]).style.background="var(--color-main-background)";
+ }
+}

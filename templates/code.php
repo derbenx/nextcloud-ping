@@ -1,4 +1,3 @@
-<!-- v11  -->
 <div id="app-content">
 <div id='tab'>
 <table><tr>
@@ -23,7 +22,7 @@ echo $ip[0].".".$ip[1].".".$ip[2];
  <button id='prsc'>Port Scan</button>
  <button id='stsc'>Stop Scan</button>
  <label id='lb' for='cb'>scroll to:<input id='cb' type='checkbox'></label>
-(Ver 1.0.0)
+(Ver 1.0.1)
 </div><p>
 <div id="pr"></div>
 <?php
