@@ -1,12 +1,19 @@
-
+//to do
+//needs ip checker line: ~161
+nx=1; // nextcloud=1
+const chk= nx==0 ? "chk.php" : "chk";
 const arr=['ip','st','ed','sp','ep','to'];
 const pr=document.getElementById('pr'); //log area
+const ver = document.getElementById('ver');
+ver.innerHTML="(Ver 1.1.0)";
 const ip = document.getElementById('ip');
 const st = document.getElementById('st');
 const ed = document.getElementById('ed');
 const sp = document.getElementById('sp');
 const ep = document.getElementById('ep');
 const to = document.getElementById('to');
+ip.addEventListener('click', function(){ updat(0) });
+ip.addEventListener('keyup', function(){ updt(0) });
 st.addEventListener('click', function(){ updat(1) });
 st.addEventListener('keyup', function(){ updt(1) });
 ed.addEventListener('click', function(){ updat(2) });
@@ -33,6 +40,7 @@ var i=-1;
 //setTimeout( function(){doit("<?php echo $ip; ?>"+i)},100);
 
 function stps(xx){
+ if (ip.style.background=="red") { return; }
  rstclr()
  //console.log(xx);
  if (xx==-1) {
@@ -67,7 +75,7 @@ function doit(){ //construct data for ajax
   if (i==-1) { i=st.value };
   ip4+='.'+i;
   pt='p'; //ping
-  i = (i>=ed.value) ? st*1 : (i*1)+1 ;
+  i = (i>=ed.value) ? st.value*1 : (i*1)+1 ;
  }
  if (scan==0) { //port ip sweep
   if (i==-1) { i=st.value };
@@ -84,6 +92,7 @@ function doit(){ //construct data for ajax
  
  //console.log(ip4,pt);
  data= "ip="+ip4+"&pt="+pt+"&to="+to.value;
+ //console.log(data);
  ps(data);
 }
 
@@ -93,7 +102,7 @@ function ps(a) { //send ajax req
  if (cc) { cc.innerHTML="<font id='yel'>wait..</font>"; }
  const xhttp = new XMLHttpRequest();
  xhttp.onload = function () { recv(this) };
- xhttp.open("POST", window.location.href+"chk", true);
+ xhttp.open("POST", window.location.href+chk, true);
  xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
  xhttp.send(a);
 }
@@ -104,6 +113,7 @@ function recv(inc){ //revieved ajax reply
  tmp=inc.responseText;
  d1=tmp.split(" ");
  d2=d1[0].split(".");
+ //console.log(tmp,d2);
  if (d2.count==0) { d2=['','','']; }
  //con
  var gb;
@@ -113,8 +123,9 @@ function recv(inc){ //revieved ajax reply
  //if (gb='grn'){ pt=80; doit("192.168.15."+i) }
  zz='';
  if (d1[1]!='ping') { zz=':'+d1[1]; }
- var ht= d1[1]=='443' ? 'https' : 'http';
- var ht= d1[1]=='21' ? 'ftp' : 'http';
+ var ht='http';
+ if (d1[1]=='443') { ht='http'; }
+ if (d1[1]=='21') { ht='ftp'; }
  //console.log(d1,d2);
 
  var out="<a href='"+ht+"://"+d1[0]+zz+"'><font id='"+gb+"'>"+d2[3]+" "+d1[1]+":"+d1[2].substr(0, 2);+"</font></a><br>";
@@ -136,7 +147,12 @@ function recv(inc){ //revieved ajax reply
 }
 
 function updt(qq){ // delay updates
- setTimeout(() => { updat(qq) }, "1000");
+ if (qq==0) {
+  //ip.style.background="#440";
+  updat(qq)
+ } else {
+  setTimeout(() => { updat(qq) }, "1000");
+ }
 }
 function updat(qq){ // update [input id='to']
  if ( (st.value*1)<1 ) { st.value=1; }
@@ -151,7 +167,15 @@ function updat(qq){ // update [input id='to']
  if (to.value>5) { to.value=5; }
 
  if (qq==0) { // check ip
-  //code goes here
+  //check ip
+  var rgx= /^\d{1,3}\.\d{1,3}\.\d{1,3}$/
+  var tmp=rgx.test(ip.value);
+  //console.log(tmp);
+  if (tmp==false) {
+   ip.style.background="red";
+  } else {
+   ip.style.background="";
+  }
  }
  if (qq==1) { //check 1-254
   if ( (st.value*1)>(ed.value*1) ) { ed.value = (st.value*1); }

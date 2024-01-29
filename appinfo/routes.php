@@ -6,8 +6,8 @@
  * it's instantiated in there
  */
 return [
-    'routes' => [
-	   ['name' => 'page#index', 'url' => '/', 'verb' => 'GET'],
-       ['name' => 'page#save', 'url' => '/chk', 'verb' => 'POST']
-    ]
+ 'routes' => [
+	 ['name' => 'page#index', 'url' => '/', 'verb' => 'GET'],
+  ['name' => 'page#save', 'url' => '/chk', 'verb' => 'POST']
+ ]
 ];
